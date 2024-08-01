@@ -1,0 +1,35 @@
+<div class="admin-title">
+    <h2>Posts</h2>
+    <!-- <a href="/add-article" class="button">+ Add New</a> -->
+
+    <a href="/add-article" class="btn-add">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+      Add New Article
+    </a>
+
+</div>
+  
+  <ul class="admin-posts">
+  
+    <% data.forEach(post => { %>
+     
+      <li>
+        <a href="/article/<%= post._id %>">
+          <%= post.title %> &nearr;
+        </a>
+        <div class="admin-post-controls">
+          <a href="/edit-article/<%= post._id %>" class="btn">Edit</a>
+  
+          <form action="/delete-article/<%= post._id %>?_method=DELETE" method="POST">
+            <input type="submit" value="Delete" class="btn-delete">
+          </form>
+  
+        </div>
+  
+      </li>
+  
+    <% }) %>
+
+  </ul>

@@ -1,0 +1,21 @@
+<div class="author">
+    <h1 class="author__heading">Search Results</h1>
+</div>
+
+<section class="articles">
+    <% if (message) { %>
+    <p><%= message %></p>
+    <% } else { %>
+    <ul class="article-ul">
+        <% data.forEach(article => { %>
+        <li>
+            <a href="/article/<%= article._id %>">
+            <span><%= article.title %></span>
+            <span class="article-list__date"><%= article.createdAt.toDateString() %></span>
+            </a>
+        </li>
+        <% }) %>
+    </ul>
+    <% } %>
+</section>
+  
