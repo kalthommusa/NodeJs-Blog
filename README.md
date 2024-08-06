@@ -1,6 +1,6 @@
 views / pages
 
-![](project-imgs/1blog- home 1.png)
+![](project-imgs/'1blog- home 1.png')
 
 
 
