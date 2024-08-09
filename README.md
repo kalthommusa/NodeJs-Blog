@@ -1,46 +1,52 @@
-views / pages
+# The BLOG views / pages
 
 
-**Home page**:
+## Home page:
 
 ![](readme-imgs/1.png)
 
-List of the latest Posts (page 1)
+**List of the latest Posts (page 1)**
+
 ![](readme-imgs/2.png)
 
-List of the oldest Posts (page 2)
+**List of the oldest Posts (page 2)**
+
 ![](readme-imgs/3.png)
 
-View a specific article
+**View a specific article**
+
 ![](readme-imgs/4.png)
 
-Search for an article
+**Search for an article**
+
 ![](readme-imgs/5.png)
 
 ![](readme-imgs/6.png)
 
-Positive search match
+**Positive search match**
+
 ![](readme-imgs/7.png)
 
 ![](readme-imgs/8.png)
 
-Negative search match
+**Negative search match**
 ![](readme-imgs/9.png)
 
 ![](readme-imgs/10.png)
 
 
-**About page**:
+## About page:
+
 ![](readme-imgs/11.png)
 
 
-**Contact us page**:
+## Contact us page:
 ![](readme-imgs/12.png)
-
 ![](readme-imgs/13.png)
 
 
-**Admin page**:
+## Admin page:
+
 ![](readme-imgs/10blog-%20admin%20registration.png)
 
 ![](readme-imgs/10blog-%20admin%20registration%202.png)
