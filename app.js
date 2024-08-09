@@ -46,7 +46,7 @@ app.use(methodOverride('_method'));
 
 app.use(express.static('public'));
 app.use(expressLayout);
-app.set('layout', mainLayout); 
+app.set('layout', mainLayout);         
 app.set('view engine', 'ejs');
 
 app.locals.isActiveRoute = isActiveRoute;      
