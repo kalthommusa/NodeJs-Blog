@@ -4,8 +4,6 @@ const router = express.Router();
 
 const Article = require('../models/Article');
 
-//const adminLayout = require('../views/layouts/admin');
-
 const adminLayout = '../views/layouts/admin';
 
 const User = require('../models/User');
@@ -17,24 +15,25 @@ const jwt = require('jsonwebtoken');
 const jwtSecret = process.env.JWT_SECRET;
 
 
-
-
 /*
-Admin Registeration && Login Page
+Admin - Registration Page
 */
-router.get('/admin', async (req, res) => {
-  try{
-
+router.get('/register', async (req, res) => {
+  try {
     const locals = {
-        title: "Admin",
-        description: "Simple Blog created with NodeJs, Express & MongoDb."
-      }
-
-    res.render('admin/login', { locals, layout: adminLayout }); // custom layout for admin page/view
-  }catch(error){
+      title: "Admin - Register",
+      description: "Simple Blog created with NodeJs, Express & MongoDb."
+    }
+    res.render('admin/registration', { 
+      locals, 
+      layout: adminLayout,
+      currentRoute: '/register'
+     });
+  } catch (error) {
     console.log(error);
   }
 });
+
 
 
 /**
@@ -42,25 +41,48 @@ router.get('/admin', async (req, res) => {
  * Admin - Register
 */
 router.post('/register', async (req, res) => {
-    try {
-      const { username, password } = req.body;
-      const hashedPassword = await bcrypt.hash(password, 10);
-  
-      try {
-        const user = await User.create({ username, password:hashedPassword });
-        res.status(201).json({ message: 'User Created', user });
-      } catch (error) {
-        if(error.code === 11000) {
-          res.status(409).json({ message: 'User already in use'});
-        }
-        res.status(500).json({ message: 'Internal server error'})
-      }
-  
-    } catch (error) {
-      console.log(error);
-    }
-  });
+  try {
+    const { username, password } = req.body;
+    const hashedPassword = await bcrypt.hash(password, 10);
 
+    try {
+      const user = await User.create({ username, password:hashedPassword });
+      //res.status(201).json({ message: 'User Created', user });
+      res.redirect('/login');
+    } catch (error) {
+      if(error.code === 11000) {
+        res.status(409).json({ message: 'User already in use'});
+      }
+      res.status(500).json({ message: 'Internal server error'})
+    }
+
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+
+
+/*
+Admin - Login Page
+*/
+router.get('/login', async (req, res) => {
+  try{
+
+    const locals = {
+        title: "Admin - login",
+        description: "Simple Blog created with NodeJs, Express & MongoDb."
+      }
+
+    res.render('admin/login', { 
+      locals, 
+      layout: adminLayout, // custom layout for admin page/view
+      currentRoute: '/login'
+     }); 
+  }catch(error){
+    console.log(error);
+  }
+});
 
 
 /**
@@ -91,7 +113,7 @@ router.post('/register', async (req, res) => {
  * POST /
  * Admin - Check Login
 */
-router.post('/admin', async (req, res) => {
+router.post('/login', async (req, res) => {
   try {
     const { username, password } = req.body;
     
@@ -156,7 +178,8 @@ router.get('/dashboard', authMiddleware, async (req, res) => {
     res.render('admin/dashboard', {
       locals,
       data, 
-      layout: adminLayout    
+      layout: adminLayout, 
+      currentRoute: '/dashboard'    
     });
 
   } catch (error) {
@@ -179,7 +202,8 @@ router.get('/add-article', authMiddleware, async (req, res) => {
 
     res.render('admin/add-article', {
       locals,
-      layout: adminLayout
+      layout: adminLayout, 
+      currentRoute: '/add-article'    
     });
 
   } catch (error) {
@@ -239,9 +263,9 @@ router.get('/edit-article/:id', authMiddleware, async (req, res) => {
     res.render('admin/edit-article', {
       locals,
       data,
-      layout: adminLayout
-    })
-
+      layout: adminLayout, 
+      currentRoute: `/article/${articleId}` 
+    });
   } catch (error) {
     console.log(error);
   }
@@ -264,7 +288,8 @@ router.put('/edit-article/:id', authMiddleware, async (req, res) => {
       updatedAt: Date.now()
     });
 
-    res.redirect(`/edit-article/${articleId}`);
+    // res.redirect(`/edit-article/${articleId}`);
+    res.redirect('/dashboard');
 
   } catch (error) {
     console.log(error);
@@ -288,7 +313,8 @@ router.delete('/delete-article/:id', authMiddleware, async (req, res) => {
     console.log(error);
   }
 
-});
+}); 
+
 
 
 /**
