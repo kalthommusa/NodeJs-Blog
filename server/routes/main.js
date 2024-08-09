@@ -5,7 +5,7 @@ const router = express.Router();
 const Article = require('../models/Article');
 
 
-router.get('', async (req, res) => {
+router.get('/', async (req, res) => {
   try{
     const locals = {
       title: "NodeJs Blog",
@@ -20,13 +20,11 @@ router.get('', async (req, res) => {
     .limit(perPage)
     .exec();
 
-    // Count is deprecated - please use countDocuments
-    // const count = await Post.count();
     const count = await Article.countDocuments({});
     const nextPage = parseInt(page) + 1;
     const hasNextPage = nextPage <= Math.ceil(count / perPage);
 
-    res.render('index', { 
+    res.render('home', { 
       locals,
       data,
       current: page,
@@ -38,7 +36,7 @@ router.get('', async (req, res) => {
     console.log(error);
   }
 
-});
+});   
 
 
 // router.get('', async (req, res) => {
@@ -49,7 +47,7 @@ router.get('', async (req, res) => {
 
 //   try{
 //       const data = await Article.find();
-//       res.render('index', { locals, data }); // view // page // spacial content for each page in side the overall HTML layout strcture
+//       res.render('home', { locals, data }); // view // page // spacial content for each page in side the overall HTML layout strcture
 //   }catch(error){
 //       console.log(error);
 //   }
