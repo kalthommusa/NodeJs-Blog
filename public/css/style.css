@@ -222,7 +222,6 @@ img {
 }
 
 
-
 /* Add New Button */
 .btn-add {
   /* background-color: var(--black); */
@@ -320,6 +319,7 @@ img {
 }
 
 
+
 /* Footer */
 .footer {
   margin: 4rem;
@@ -411,4 +411,10 @@ img {
 
 .pagination:hover {
   color: var(--black);
+}
+
+
+#registration #login .header__button {
+  visibility: hidden;
+  transform: translateY(-100px); 
 }
