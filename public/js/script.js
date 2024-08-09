@@ -24,3 +24,15 @@ document.addEventListener('DOMContentLoaded', function(){
   
   
   });
+
+// Function to show a confirmation dialog when attempting to delete a post
+function confirmDelete(postTitle) {
+  const confirmation = confirm(`Are you sure you want to delete the post titled "${postTitle}"? The article will not be available in the database anymore.`);
+  if (confirmation) {
+    //alert(`The article titled "${postTitle}" has been successfully deleted.`);
+  } else {
+    alert(`The deletion has been canceled.`);
+    window.location.href = '/dashboard'; // Redirect back to dashboard
+  }
+  return confirmation; // Proceed with form submission if confirmed
+}
