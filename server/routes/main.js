@@ -5,6 +5,10 @@ const router = express.Router();
 const Article = require('../models/Article');
 
 
+/**
+ * GET 
+ * Home page
+*/
 router.get('/', async (req, res) => {
   try{
     const locals = {
@@ -54,6 +58,10 @@ router.get('/', async (req, res) => {
 // });
 
 
+/**
+ * GET 
+ * Article page
+*/
 router.get('/article/:id', async (req, res) => {
   try {
     let id = req.params.id;
@@ -78,7 +86,10 @@ router.get('/article/:id', async (req, res) => {
 
 
 
-
+/**
+ * Post 
+ * Search bar
+*/
 router.post('/search', async (req, res) => {
   try {
     const locals = {
@@ -98,13 +109,14 @@ router.post('/search', async (req, res) => {
 
     let message = null;
     if (data.length === 0) {
-      message = "No articles found matching your search query.";
+      // message = "No articles found matching your search query.";
+      message = "Oops! no articles found. Try searching for something else or browse our latest posts.";
     }
 
     res.render("search", {
       data,
       locals,
-      currentRoute: '/',  //why not /search
+      currentRoute: '/',  
       message
     });
 
@@ -166,8 +178,8 @@ router.post('/search', async (req, res) => {
 
 
 /**
- * GET /
- * About
+ * GET 
+ * About page
 */
 router.get('/about', (req, res) => {
   res.render('about', {
@@ -178,8 +190,8 @@ router.get('/about', (req, res) => {
 
 
 /**
- * GET /
- * Contact
+ * GET 
+ * Contact page
 */
 router.get('/contact', (req, res) => {
   res.render('contact', {
