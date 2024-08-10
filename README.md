@@ -41,12 +41,12 @@
 
 ## Admin page:
 
-**Registration**
+**Admin Registration**
 ![](readme-imgs/10blog-%20admin%20registration.png)
 
 ![](readme-imgs/10blog-%20admin%20registration%202.png)
 
-**Login**
+**Admin Login**
 ![](readme-imgs/11blog-%20admin%20login.png)
 
 ![](readme-imgs/11blog-%20admin%20login%202.png)
@@ -54,7 +54,9 @@
 **Admin Dashboard**
 ![](readme-imgs/12blog-admin%20dashboard.png)
 
-**Make a post**
+## CRUD Operations by Admin:
+
+**Make a new post**
 ![](readme-imgs/13blog-%20admin%20-%20post%20new%20article.png)
 
 ![](readme-imgs/13blog-%20admin%20-%20post%20new%20article%202.png)
