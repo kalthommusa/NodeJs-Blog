@@ -37,40 +37,51 @@
 ## Contact us page:
 ![](readme-imgs/12.png)
 ![](readme-imgs/13.png)
-
+![](readme-imgs/14.png)
+![](readme-imgs/15.png)
 
 ## Admin page:
 
 **Admin Registration**
-![](readme-imgs/10blog-%20admin%20registration.png)
+![](readme-imgs/16.png)
 
-![](readme-imgs/10blog-%20admin%20registration%202.png)
+![](readme-imgs/17.png)
 
 **Admin Login**
-![](readme-imgs/11blog-%20admin%20login.png)
+![](readme-imgs/18.png)
 
-![](readme-imgs/11blog-%20admin%20login%202.png)
+![](readme-imgs/19.png)
+
 
 **Admin Dashboard**
-![](readme-imgs/12blog-admin%20dashboard.png)
+![](readme-imgs/20.png)
+
+
+**View Contact Messages**
+![](readme-imgs/21.png)
+
 
 ## CRUD Operations by Admin:
 
 **Make a new post**
-![](readme-imgs/13blog-%20admin%20-%20post%20new%20article.png)
+![](readme-imgs/22.png)
 
-![](readme-imgs/13blog-%20admin%20-%20post%20new%20article%202.png)
+![](readme-imgs/23.png)
+
 
 **Update a post**
-![](readme-imgs/14blog-%20admin%20-edit%20article.png)
+![](readme-imgs/24.png)
 
-![](readme-imgs/14blog-%20admin%20-edit%20article%202.png)
+![](readme-imgs/25.png)
 
-![](readme-imgs/14blog-%20admin%20-edit%20article%203.png)
+![](readme-imgs/26.png)
+
 
 **Delete a post**
-![](readme-imgs/15blog-%20admin%20-delete%20article.png)
+![](readme-imgs/27.png)
 
-![](readme-imgs/15blog-%20admin%20-delete%20article%202.png)
+![](readme-imgs/28.png)
+
+![](readme-imgs/29.png)
 
 
