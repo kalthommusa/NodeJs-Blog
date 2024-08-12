@@ -1,4 +1,26 @@
-# The BLOG views / pages
+# NodeJS Blog App
+
+## Overview
+
+This blog application is a web-based and user-friendly platform built using Node.js, Express, and MongoDB. It allows users to read, search, and interact with blog posts, while providing an administrative interface for managing content. It provides the following key features and functionalities:
+
+## Public Features:
+
+* Home page displaying the latest and oldest blog posts with pagination
+* Ability to read individual blog posts
+* Search functionality to find blog posts by title or content
+* Access static pages like About and Contact.
+* Ability to submit messages through the contact form.
+
+## Admin Features:
+
+* Admin registration and login
+* Admin dashboard to manage blog articles.
+* Create, update, and delete blog articles.
+* View contact messages from users.
+
+
+# The BLOG pages
 
 
 ## Home page:
@@ -86,7 +108,7 @@
 
 
 
-# Routs and functionalties
+# Routs
 
 The routes are organized into two categories: main/public routes and admin routes. 
 The main/public routes handle the main functionality of the blog, such as displaying the home page, individual articles, search functionality, and the contact form. 
@@ -94,88 +116,77 @@ The admin routes handle the administrative functions, such as user registration 
 
 # 1- Main/Public Routes (in [main.js](server/routes/main.js)):
 
-* Home Page (**/**):
+These routes are accessible to all users of the blog.
 
-Renders the home view.
-Displays the latest blog posts, with pagination.
+**GET /** - Home Page: Displays a list of blog articles with pagination.
 
-* Article Page (/article/:id):
+**GET /article/:id** - Article page: Displays a specific article based on the given ID.
 
-Renders the article view.
-Displays the details of a specific blog post.
+**POST /search** - Search: Allows users to search for articles by title or content.
 
-* Search (/search):
+**GET /about** - About Page: Provides information about the author.
 
-Renders the search view.
-Handles the search functionality for blog posts.
+**GET /contact** - Contact Page: Displays a contact form for users to reach out.
 
+**POST /contact** - Contact form submission: Handles form submissions and saves messages to the database.
 
-* About Page (/about):
-
-Renders the about view.
-
-* Contact Page (/contact):
-
-Renders the contact view.
-Displays the contact form and handles the submission.
-Saves the contact message in the database.
-Redirects to the contact-success page.
-
-* Contact Form Success Page (/contact-success):
-
-Renders the contact-success view.
+**GET /contact-success** - Contact success Page: Displays a success message after a contact form is successfully submitted.
 
 
 # 2- Admin Routes (in [admin.js](server/routes/admin.js)):
 
-* Admin Registration Page (/register):
+These routes require authentication and are used for managing the blog content.
 
-Renders the admin registration view.
-Handles the registration of a new admin.
-Hashes the password using bcrypt.
-Saves the new user in the database.
-Redirects to the login page.
+**GET /register** - Admin Registration Page: Displays the registration page for new admin users.
 
-* Admin Login Page (/login):
+**POST /register** - Admin Register: Handles registration form submissions and creates new admin users.
 
-Renders the admin login view.
-Handles the login of an admin user.
-Checks the username and password.
-Generates a JWT token and stores it in the user's cookie.
-Redirects to the admin dashboard.
+**GET /login** - Admin Login Page: Displays the login page for admin users.
 
-* Admin Dashboard (/dashboard):
+**POST /login** - Admin Login: Authenticates admin users and starts a session.
 
-Renders the admin dashboard view.
-Requires authentication using the authMiddleware.
-Displays the list of blog posts.
+**GET /dashboard** - Admin Dashboard Page: Displays the dashboard with an overview of blog articles. (Protected route, requires authentication using the authMiddleware)
+
+**GET /add-article** - Create New Post Page: Displays the form to create a new blog post. (Protected route, requires authentication using the authMiddleware)
+
+**POST /add-article** - Create New Post: Handles the submission of new blog posts. (Protected route, requires authentication using the authMiddleware)
+
+**GET /edit-article/:id** - Update Post Page: Displays the form to edit an existing blog post based on ID. (Protected route, requires authentication using the authMiddleware)
+
+**PUT /edit-article/:id** - Update Post: Handles the submission of updates to existing blog posts. (Protected route, requires authentication using the authMiddleware)
+
+**DELETE /delete-article/:id** - Delete Post: Deletes a blog post based on the given ID. (Protected route, requires authentication using the authMiddleware)
+
+**GET /contact-messages** - View Contact Messages Page: Displays messages sent by users through the contact form. (Protected route, requires authentication using the authMiddleware)
+
+**GET /logout** - Admin Logout: Logs out the admin user and ends the session.
 
 
-* Add New Post (/add-article):
+# Middleware
 
-Renders the admin add-article view.
-Requires authentication using the authMiddleware.
-Handles the creation of a new blog post.
+**authMiddleware**: It is a custom middleware function that checks for a valid JWT token in the request cookies, it is used to protect certain routes, such as the admin dashboard, and ensure that only authorized admin users can access these routes.
 
-* Edit Post (/edit-article/:id):
 
-Renders the admin edit-article view with the post details.
-Requires authentication using the authMiddleware.
-Handles the update of an existing blog post.
+# Models
 
-* Delete Post (/delete-article/:id):
+**Article**: Represents a blog article with fields such as title, body.
 
-Requires authentication using the authMiddleware.
-Handles the deletion of a blog post.
+**User**: Represents an admin user with fields such as username and password.
 
-* View Contact Messages (/contact-messages):
+**Contact**: Represents a contact form message with fields such as name, email, and message.
 
-Renders the admin/contact-messages view.
-Requires authentication using the authMiddleware.
-Displays the list of contact messages.
 
-* Admin Logout (/logout):
 
-Clears the user's JWT token from the cookie.
-Redirects to the home page.
+# Technologies and Libraries Used:
 
+* **Node.js**: JavaScript runtime for building server-side applications.
+* **Express**: Web framework for Node.js, used for routing and middleware support.
+* **MongoDB**: NoSQL database for storing articles and contact messages.
+* **Mongoose**: ODM library for MongoDB, used for database interactions.
+* **EJS**: Templating engine for rendering dynamic web pages.
+* **Express-layout**: for managing page layouts.
+* **Bcrypt**: Library for hashing passwords.
+* **Jsonwebtoken**: Library for implementing JSON Web Token (JWT) authentication.
+* **Express-session & Connect-mongo & Cookie-parser**: Libraries for managing sessions and authentication.
+* **Method-override**: Middleware to support HTTP verbs like PUT and DELETE.
+* **Dotenv**: for managing environment variables.
