@@ -94,7 +94,7 @@ The admin routes handle the administrative functions, such as user registration 
 
 # 1- Main/Public Routes (in [main.js](server/routes/main.js)):
 
-* Home Page (/):
+* Home Page (**/**):
 
 Renders the home view.
 Displays the latest blog posts, with pagination.
