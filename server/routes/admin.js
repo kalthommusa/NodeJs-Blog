@@ -1,22 +1,17 @@
 const express = require('express');
-
 const router = express.Router();
-
-const Article = require('../models/Article');
-
 const adminLayout = '../views/layouts/admin';
-
+const Article = require('../models/Article');
 const User = require('../models/User');
-
+const Contact = require('../models/Contact');
 const bcrypt = require('bcrypt');
-
 const jwt = require('jsonwebtoken');
-
 const jwtSecret = process.env.JWT_SECRET;
 
 
-/*
-Admin - Registration Page
+/** 
+ * Get
+ * Admin - Registration Page
 */
 router.get('/register', async (req, res) => {
   try {
@@ -37,7 +32,7 @@ router.get('/register', async (req, res) => {
 
 
 /**
- * POST /
+ * POST 
  * Admin - Register
 */
 router.post('/register', async (req, res) => {
@@ -63,8 +58,9 @@ router.post('/register', async (req, res) => {
 
 
 
-/*
-Admin - Login Page
+/**
+ * Get 
+ * Admin - Login Page
 */
 router.get('/login', async (req, res) => {
   try{
@@ -86,7 +82,7 @@ router.get('/login', async (req, res) => {
 
 
 /**
- * POST /
+ * POST 
  * Admin - Check Login
 */
 // router.post('/admin', async (req, res) => {
@@ -110,7 +106,7 @@ router.get('/login', async (req, res) => {
 
 
 /**
- * POST /
+ * POST 
  * Admin - Check Login
 */
 router.post('/login', async (req, res) => {
@@ -142,8 +138,7 @@ router.post('/login', async (req, res) => {
 
 
 /**
- * 
- * Check Login Authorization Middleware - Session Login / Logout
+ * Authorization Middleware 
 */
 const authMiddleware = (req, res, next ) => {
   const token = req.cookies.token;
@@ -164,8 +159,8 @@ const authMiddleware = (req, res, next ) => {
 
 
 /**
- * GET /
- * Admin Dashboard -  Porotacted Page - Token required - Session Login / Logout
+ * GET 
+ * Admin Dashboard 
 */
 router.get('/dashboard', authMiddleware, async (req, res) => {
   try {
@@ -190,7 +185,7 @@ router.get('/dashboard', authMiddleware, async (req, res) => {
   
 
 /**
- * GET /
+ * GET 
  * Admin - Create New Post
 */
 router.get('/add-article', authMiddleware, async (req, res) => {
@@ -214,7 +209,7 @@ router.get('/add-article', authMiddleware, async (req, res) => {
 
 
 /**
- * POST /
+ * POST 
  * Admin - Create New Post
 */
 router.post('/add-article', authMiddleware, async (req, res) => {
@@ -244,9 +239,8 @@ router.post('/add-article', authMiddleware, async (req, res) => {
 
 
 
-
 /**
- * GET /
+ * GET 
  * Admin - Update & Edite Post
 */
 router.get('/edit-article/:id', authMiddleware, async (req, res) => {
@@ -274,7 +268,7 @@ router.get('/edit-article/:id', authMiddleware, async (req, res) => {
 
 
 /**
- * PUT /
+ * PUT 
  * Admin - Update & Edite Post
 */
 router.put('/edit-article/:id', authMiddleware, async (req, res) => {
@@ -300,7 +294,7 @@ router.put('/edit-article/:id', authMiddleware, async (req, res) => {
 
 
 /**
- * DELETE /
+ * DELETE 
  * Admin - Delete Post
 */
 router.delete('/delete-article/:id', authMiddleware, async (req, res) => {
@@ -318,7 +312,34 @@ router.delete('/delete-article/:id', authMiddleware, async (req, res) => {
 
 
 /**
- * GET /
+ * GET 
+ * Admin - View Contact Messages
+ */
+router.get('/contact-messages', authMiddleware, async (req, res) => {
+  try {
+    const locals = { 
+      title: 'Contact Messages',
+      description: 'View messages sent by users through the contact form.',
+    };
+
+    const messages = await Contact.find().sort({ createdAt: -1 });
+
+    res.render('admin/contact-messages', {
+      locals,
+      messages,
+      layout: adminLayout,
+      currentRoute: '/contact-messages',
+    });
+
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+
+
+/**
+ * GET 
  * Admin Logout
 */
 router.get('/logout', (req, res) => {

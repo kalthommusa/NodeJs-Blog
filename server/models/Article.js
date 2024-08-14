@@ -11,15 +11,7 @@ const ArticleSchema = new Schema(
   body: {
     type: String,
     required: true
-  }/*,
-  createdAt: {
-    type: Date,
-    default: Date.now
-  },
-  updatedAt: {
-    type: Date,
-    default: Date.now
-  }*/
+  }
 },
 {
   // Add (createdAt and updatedAt) to the document
@@ -27,4 +19,6 @@ const ArticleSchema = new Schema(
 }
 );
 
-module.exports = mongoose.model('Article', ArticleSchema); // collection will be named 'articles' not 'Article' in the database
+const Article = mongoose.model('Article', ArticleSchema); // collection will be named 'articles' in the databas not 'Article' 
+
+module.exports = Article;

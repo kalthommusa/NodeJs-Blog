@@ -4,6 +4,8 @@ const router = express.Router();
 
 const Article = require('../models/Article');
 
+const Contact = require('../models/Contact');
+
 
 /**
  * GET 
@@ -16,18 +18,21 @@ router.get('/', async (req, res) => {
       description: "Simple Blog created with NodeJs, Express & MongoDb."
     }
 
-    let perPage = 5;
-    let page = req.query.page || 1;
+    let perPage = 5; // Number of articles per page
+    let page = req.query.page || 1; // Current page number from query parameter
 
-    const data = await Article.aggregate([ { $sort: { createdAt: -1 } } ])
-    .skip(perPage * page - perPage)
-    .limit(perPage)
+    // Fetch articles for the current page
+    const data = await Article.aggregate([ { $sort: { createdAt: -1 } } ]) // Sort articles by creation date in descending order
+    .skip(perPage * page - perPage) // Skip articles for previous pages
+    .limit(perPage) // Limit results to the number of articles per page
     .exec();
 
-    const count = await Article.countDocuments({});
-    const nextPage = parseInt(page) + 1;
-    const hasNextPage = nextPage <= Math.ceil(count / perPage);
+    // Calculate pagination details
+    const count = await Article.countDocuments({}); // Total number of articles
+    const nextPage = parseInt(page) + 1; // Next page number
+    const hasNextPage = nextPage <= Math.ceil(count / perPage); // Check if there is a next page
 
+    // Render the home page with data and pagination details
     res.render('home', { 
       locals,
       data,
@@ -65,7 +70,8 @@ router.get('/', async (req, res) => {
 router.get('/article/:id', async (req, res) => {
   try {
     let id = req.params.id;
-
+    
+    // Fetch article by ID
     const data = await Article.findById({ _id: id });
 
     const locals = {
@@ -73,6 +79,7 @@ router.get('/article/:id', async (req, res) => {
       description: "Simple Blog created with NodeJs, Express & MongoDb.",
     }
 
+    // Render the article page with article data
     res.render('article', { 
       locals,
       data,
@@ -97,9 +104,10 @@ router.post('/search', async (req, res) => {
       description: "Simple Blog created with NodeJs, Express & MongoDb."
     };
 
-    let searchTerm = req.body.searchTerm;
-    const searchNoSpecialChar = searchTerm.replace(/[^a-zA-Z0-9 ]/g, "");
+    let searchTerm = req.body.searchTerm; // Search term from request body
+    const searchNoSpecialChar = searchTerm.replace(/[^a-zA-Z0-9 ]/g, ""); // Remove special characters from search term
 
+    // Search for articles matching the search term
     const data = await Article.find({
       $or: [
         { title: { $regex: new RegExp(searchNoSpecialChar, 'i') }},
@@ -107,12 +115,13 @@ router.post('/search', async (req, res) => {
       ]
     });
 
-    let message = null;
+    // Message to display if no results are found
+    let message = null; 
     if (data.length === 0) {
-      // message = "No articles found matching your search query.";
       message = "Oops! no articles found. Try searching for something else or browse our latest posts.";
     }
 
+    // Render the search results page with data and message
     res.render("search", {
       data,
       locals,
@@ -182,9 +191,7 @@ router.post('/search', async (req, res) => {
  * About page
 */
 router.get('/about', (req, res) => {
-  res.render('about', {
-    currentRoute: '/about'
-  });
+  res.render('about', { currentRoute: '/about' });
 });
 
 
@@ -194,11 +201,39 @@ router.get('/about', (req, res) => {
  * Contact page
 */
 router.get('/contact', (req, res) => {
-  res.render('contact', {
-    currentRoute: '/contact'
-  });
+  res.render('contact', { currentRoute: '/contact' });
 });
 
+
+ 
+/**
+ * POST
+ * Contact form submission
+ */
+router.post('/contact', async (req, res) => {
+  try {
+    const { name, email, message } = req.body; // Extract contact form data
+
+    const contactMessage = new Contact({ name, email, message });
+
+    await contactMessage.save();
+    
+    res.redirect('/contact-success'); // Redirect to the contact success page
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('An error occurred while submitting your message. Please try again later.');
+  }
+});
+
+
+
+/**
+ * GET
+ * Contact form success page
+ */
+router.get('/contact-success', (req, res) => {
+  res.render('contact-success', { currentRoute: '/contact-success' });
+});
 
 
 module.exports = router;
