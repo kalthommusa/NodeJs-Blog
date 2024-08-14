@@ -1,0 +1,12 @@
+<h1>Contact Messages</h1>
+<a href="/dashboard">&larr; Dashboard</a>
+<ul>
+  <% messages.forEach((message) => { %>
+    <li>
+      <h2>Message:</h2><p><%= message.message %></p>
+      <h4>Sent by:</h4><p><%= message.name %></p>
+      <h4>Email:</h4><p><%= message.email %></p>
+      <h4>Received on:</h4><p><%= message.createdAt.toDateString() %></p>
+    </li>
+  <% }) %>
+</ul>
